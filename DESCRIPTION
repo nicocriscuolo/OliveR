@@ -1,10 +1,13 @@
 Package: OliveR
 Type: Package
-Date: 2018-08-24
+Date: 2018-08-27
 Title: Multivariate analysis and geographic display of results
 Version: 0.1.0
-Author: Nicola Criscuolo <nico.criscuolo981@gmail.com>,
-        Claudia Anglini <c.angelini@na.iac.cnr.it>
+Authors@R: c(
+    person("Nicola", "Criscuolo", role = c("aut", "cre"), 
+            email = "nico.criscuolo981@gmail.com"),
+    person("Claudia", "Angelini", role = "aut", email = "c.angelini@na.iac.cnr.it")
+    )
 Maintainer: Nicola Criscuolo <nico.criscuolo981@gmail.com>
 Description: <what the package actually does>
 License: GPL-3
