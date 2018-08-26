@@ -14,7 +14,7 @@
 #' through the \code{\link{shinyApp}} function, which requires a script with the
 #' User Interface of the app and a script of the Server.
 #'
-#' @export runOliveR
+#' @export
 #'
 #' @examples
 #' \dontrun{
