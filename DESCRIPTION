@@ -1,7 +1,7 @@
 Package: OliveR
 Type: Package
 Date: 2018-08-27
-Title: Multivariate analysis and geographic display of results
+Title: Multivariate analysis of data and geographic display of results
 Version: 0.1.0
 Authors@R: c(
     person("Nicola", "Criscuolo", role = c("aut", "cre"), 
@@ -13,31 +13,31 @@ Description: <what the package actually does>
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
-Imports: 
+Imports:
+  colourpicker,
+  ggplot2,
+  googleway,
+  plotly,
+  shinyFiles,
+  wordcloud
 Depends: 
-  R (>= 3.1),
+  R (>= 3.5),
   ade4,
   adegenet,
   car,
-  colourpicker,
   cluster,
   dendextend,
   factoextra,
   ggfortify,
-  ggplot2,
-  googleway,
   gridExtra,
   heatmaply,
   Hmisc,
   maptools,
   mcclust,
   pastecs,
-  plotly,
   rgdal,
-  shiny,
-  shinyFiles, 
-  wordcloud
+  shiny
 Suggests:
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 URL: https://github.com/nicocriscuolo/OliveR
 BugReports: https://github.com/nicocriscuolo/OliveR/issues

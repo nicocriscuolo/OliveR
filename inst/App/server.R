@@ -1,17 +1,4 @@
-
-#' Title
-#'
-#' @param input
-#' @param output
-#' @param session
-#'
-#' @return
-#' @export
-#'
-#' @examples
-#'
-
-OliveR_SERVER <- function(input, output, session) {
+server <- function(input, output, session) {
 
 # Roots for read all the directories of the computer with the ShinyDirChoose function
 roots = getVolumes()

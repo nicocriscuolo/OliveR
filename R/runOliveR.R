@@ -23,6 +23,14 @@
 
 runOliveR <- function() {
 
-  shinyApp(ui = OliveR_UI, server = OliveR_SERVER)
+  app_Directory <- system.file("App", package = "OliveR")
+
+    if (app_Directory == "") {
+
+      stop("Could not find the application directory. Try re-installing `OliveR`.", call. = FALSE)
+
+    }
+
+  shiny::runApp(app_Directory, display.mode = "normal")
 
 }

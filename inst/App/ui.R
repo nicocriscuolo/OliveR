@@ -1,5 +1,5 @@
 
-OliveR_UI <- fluidPage(
+ui <- fluidPage(
             fluidRow(
               column(width = 12,
   p(h3(strong(em("OliveR")), strong("1.5"), "- A statistical software for multivariate data analysis and geographic display of results", align = "center"))
