@@ -1835,7 +1835,7 @@ output$adjusted_rand_index <- renderPrint({
 #### GOOGLE MAPS ####
 output$google_map_2 <- renderGoogle_map({
 
-  key_2 = ""
+  key_2 <- ""
 
 
   Geo_Coord_UTM = Data()[, c(3, 4)]
