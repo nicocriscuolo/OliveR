@@ -1,6 +1,6 @@
 Package: OliveR
 Type: Package
-Date: 2018-08-27
+Date: 2018-08-28
 Title: Multivariate analysis of data and geographic display of results
 Version: 0.1.0
 Authors@R: c(
@@ -9,35 +9,43 @@ Authors@R: c(
     person("Claudia", "Angelini", role = "aut", email = "c.angelini@na.iac.cnr.it")
     )
 Maintainer: Nicola Criscuolo <nico.criscuolo981@gmail.com>
-Description: <what the package actually does>
-License: GPL-3
+Description: The main purpose of OliveR is to display samples directly on a 
+  geographical basis thanks to the use of specific shapefiles chosen by the user. 
+  Besides performing plots and basic statistical analyzes it is possible to 
+  represent the results of multivariate statistics (such as PCA and Cluster 
+  analysis) directly on the geographical map, and thanks to the interactive 
+  functions obtain shortly time information on the samples and observe how a 
+  spatial arrangement of the samples reflects the natural groupings due to 
+  certain characteristics related to the variables of interest. 
+License: GPL-2 | file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Imports:
-  colourpicker,
-  ggplot2,
-  googleway,
-  plotly,
-  shinyFiles,
-  wordcloud
+  cluster (>= 2.0.7),
+  ggfortify (>= 0.4.5),
+  ggplot2 (>= 3.0.0.9),
+  gridExtra (>= 2.3),
+  Hmisc (>= 4.1),
+  pastecs (>= 1.3.21),
+  plotly (>= 4.8.0.9)
 Depends: 
   R (>= 3.5),
+  colourpicker (>= 1.0),
+  factoextra (>= 1.0.5),
+  googleway (>= 2.7.0),
+  maptools (>= 0.9),
+  mcclust (>= 1.0),
+  rgdal (>= 1.3),
+  shiny (>= 1.1.0),
+  shinyFiles (>= 0.7.0),
+  wordcloud (>= 2.6.0),
   ade4,
   adegenet,
   car,
-  cluster,
   dendextend,
-  factoextra,
-  ggfortify,
-  gridExtra,
-  heatmaply,
-  Hmisc,
-  maptools,
-  mcclust,
-  pastecs,
-  rgdal,
-  shiny
+  heatmaply
 Suggests:
+Repository: GitHub
 RoxygenNote: 6.1.0
 URL: https://github.com/nicocriscuolo/OliveR
 BugReports: https://github.com/nicocriscuolo/OliveR/issues

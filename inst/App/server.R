@@ -453,7 +453,6 @@ output$plot <- renderPlotly({
     Boxplot <- ggplot(Data(), aes(x, y)) +
       geom_boxplot(aes(fill = Label)) +
       geom_jitter(alpha = 0.2, width = 0.3) +
-        scale_fill_manual("Label", values = Palette) +
           labs(x = input$Variable_1, y = input$Variable_2)
 
     ggplotly(Boxplot)
@@ -465,7 +464,6 @@ output$plot <- renderPlotly({
     Boxplot <- ggplot(Data(), aes(y, x)) +
       geom_boxplot(aes(fill = Label)) +
       geom_jitter(alpha = 0.2, width = 0.3) +
-        scale_fill_manual("Label", values = Palette) +
           labs(x = input$Variable_2, y = input$Variable_1) +
             coord_flip()
 
@@ -477,7 +475,6 @@ output$plot <- renderPlotly({
 
     Barplot <- ggplot(Data(), aes(x)) +
       geom_bar(aes(fill = Label), colour = "black", width = 0.7) +
-      scale_fill_manual("Label", values = Palette) +
         labs(x = input$Variable_1, y = "Number of units")
 
     ggplotly(Barplot)
@@ -488,7 +485,6 @@ output$plot <- renderPlotly({
 
     Barplot <- ggplot(Data(), aes(y)) +
       geom_bar(aes(fill = Label), colour = "black", width = 2) +
-      scale_fill_manual("Label", values = Palette) +
       labs(x = input$Variable_2, y = "Number of units") +
         coord_flip()
 
@@ -500,7 +496,6 @@ output$plot <- renderPlotly({
 
     Colplot <- ggplot(Data(), aes(x, y)) +
       geom_col(aes(name = Sample_ID, fill = Label)) +
-      scale_fill_manual("Label", values = Palette) +
       labs(x = input$Variable_1, y = input$Variable_2) +
       theme(
         axis.text.x = element_text(size = 5, angle = 90, hjust = 1)
@@ -514,7 +509,6 @@ output$plot <- renderPlotly({
 
     Colplot <- ggplot(Data(), aes(y, x)) +
       geom_col(aes(name = Sample_ID, fill = Label)) +
-      scale_fill_manual("Label", values = Palette) +
       labs(x = input$Variable_2, y = input$Variable_1) +
       theme(
         axis.text.y = element_text(size = 5)
@@ -528,7 +522,6 @@ output$plot <- renderPlotly({
 
     Scatterplot <- ggplot(Data(),aes(x, y)) +
       geom_point(aes(name = Sample_ID, colour = Label)) +
-      scale_colour_manual("Label", values = Palette) +
         labs(x = input$Variable_1, y = input$Variable_2)
 
     ggplotly(Scatterplot)
@@ -540,7 +533,7 @@ output$plot <- renderPlotly({
     z = Data()[, input$Variable_3]
 
     plot_ly(data = Data(), x = ~x, y = ~y, z = ~z,
-            color = ~Label, colors = Palette, marker = list(size = 6),
+            color = ~Label, marker = list(size = 6),
             text = ~Sample_ID, showlegend = TRUE) %>%
       layout(legend = list(font = list(size = 12)),
         scene = list(
@@ -574,7 +567,6 @@ output$geoplot_1 <- renderPlotly({
       geom_polygon(aes(group = group), Shapefile_1_df(),
                    fill = input$Colours_1, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label)) +
-      scale_colour_manual("Label", values = Palette) +
         labs(x = "UTM Est [m]", y = "UTM Nord [m]")
 
     if (input$polygon_name_1 == FALSE) {
@@ -597,7 +589,6 @@ output$geoplot_1 <- renderPlotly({
     Geoplot_1 <- ggplot(data = Data(), aes(UTM_Est, UTM_Nord)) +
       geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_1, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label, size = Amount())) +
-        scale_colour_manual("Label", values = Palette) +
         scale_size(range = c(0.5, 3)) +
           labs(x = "UTM Est [m]", y = "UTM Nord [m]") +
             guides(colour = guide_legend(title = "Label"), size = guide_legend(title = NULL))
@@ -622,7 +613,6 @@ output$geoplot_1 <- renderPlotly({
       geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_1, colour = "grey50") +
       geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_2, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label)) +
-        scale_colour_manual("Label", values = Palette) +
           labs(x = "UTM Est [m]", y = "UTM Nord [m]")
 
     if (input$polygon_name_1 == FALSE && input$polygon_name_2 == FALSE) {
@@ -658,7 +648,6 @@ output$geoplot_1 <- renderPlotly({
       geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_1, colour = "grey50") +
       geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_2, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label, size = Amount())) +
-        scale_colour_manual("Label", values = Palette) +
         scale_size(range = c(0.5, 3)) +
           labs(x = "UTM Est [m]", y = "UTM Nord [m]") +
             guides(colour = guide_legend(title = "Label"), size = guide_legend(title = NULL))
@@ -697,7 +686,6 @@ output$geoplot_1 <- renderPlotly({
       geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_2, colour = "grey50") +
       geom_polygon(aes(group = group), Shapefile_3_df(), fill = input$Colours_3, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label)) +
-        scale_colour_manual("Label", values = Palette) +
           labs(x = "UTM Est [m]", y = "UTM Nord [m]")
 
     if (input$polygon_name_1 == FALSE && input$polygon_name_2 == FALSE && input$polygon_name_3 == FALSE) {
@@ -762,7 +750,6 @@ output$geoplot_1 <- renderPlotly({
       geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_2, colour = "grey50") +
       geom_polygon(aes(group = group), Shapefile_3_df(), fill = input$Colours_3, colour = "grey50") +
       geom_point(aes(name = Sample_ID, colour = Label, size = Amount())) +
-        scale_colour_manual("Label", values = Palette) +
         scale_size(range = c(0.5, 3)) +
           labs(x = "UTM Est [m]", y = "UTM Nord [m]") +
             guides(colour = guide_legend(title = "Label"), size = guide_legend(title = NULL))
@@ -827,8 +814,7 @@ output$geoplot_1 <- renderPlotly({
 #### GOOGLE MAPS ####
 output$google_map_1 <- renderGoogle_map({
 
-  key = "AIzaSyCc9CuDSoNlXf5i_7SRamt7TNpXx9qhbas"
-
+  key_1 <- ""
 
   Geo_Coord_UTM_1 = Data()[, c(3, 4)]
 
@@ -849,7 +835,7 @@ output$google_map_1 <- renderGoogle_map({
 
 
 
-  google_map(key = key, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_1, lon = "lon", lat = "lat", info_window = "Label.Sample_ID_1")
+  google_map(key = key_1, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_1, lon = "lon", lat = "lat", info_window = "Label.Sample_ID_1")
 
 })
 
@@ -1120,8 +1106,7 @@ output$PCs_plot <- renderPlotly({
       colnames(SCORES)[5] = "Comp.1"
 
      Plot <- ggplot(SCORES, aes(x = Comp.1, y = 0)) + geom_point(aes(name = Sample_ID, colour = Label))+
-        labs(x = paste0("PC1", " ", "(", PCA_Sdev[1,], "%", ")"), y = NULL)+
-          scale_colour_manual("Label", values = Palette)
+        labs(x = paste0("PC1", " ", "(", PCA_Sdev[1,], "%", ")"), y = NULL)
 
      ggplotly(Plot)
 
@@ -1132,8 +1117,7 @@ output$PCs_plot <- renderPlotly({
       Biplot <- autoplot(princomp(Data()[,-c(1, 2, 3, 4)], cor = TRUE), data = Data(), loadings = TRUE,
           loadings.colour = "black", loadings.label = TRUE, loadings.label.size = 4) +
             geom_point(aes(name = Sample_ID, colour = Label)) +
-              labs(x = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")"), y = paste0("PC2"," ","(",PCA_Sdev[2,],"%",")")) +
-                scale_colour_manual("Label", values = Palette)
+              labs(x = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")"), y = paste0("PC2"," ","(",PCA_Sdev[2,],"%",")"))
 
       ggplotly(Biplot)
 
@@ -1144,8 +1128,7 @@ output$PCs_plot <- renderPlotly({
       Biplot <- autoplot(princomp(Data()[,-c(1,2,3,4)], cor = FALSE), data = Data(), loadings = TRUE,
         loadings.colour = "black", loadings.label = TRUE, loadings.label.size = 4) +
           geom_point(aes(name = Sample_ID, colour = Label)) +
-            labs(x = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")"), y = paste0("PC2"," ","(",PCA_Sdev[2,],"%",")")) +
-              scale_colour_manual("Label", values = Palette)
+            labs(x = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")"), y = paste0("PC2"," ","(",PCA_Sdev[2,],"%",")"))
 
       ggplotly(Biplot)
 
@@ -1154,7 +1137,7 @@ output$PCs_plot <- renderPlotly({
     else if (input$PCs_B == 3) {
 
       plot_ly(data = SCORES, x = ~SCORES[,5], y = ~SCORES[,6], z = ~SCORES[,7],
-              color = ~Label, colors = Palette, marker = list(size = 6),
+              color = ~Label, marker = list(size = 6), # colors = Palette
               text = ~Sample_ID, showlegend = TRUE) %>%
         layout(legend = list(font = list(size = 12)),
                scene = list(xaxis = list(title = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")")),
@@ -1196,6 +1179,7 @@ output$wss <- renderPlotly({
       geom_point(aes(y = TWSS), size = 4, colour = "steelblue") +
       geom_point(aes(y = BSS), size = 4, colour = "indianred2") +
       geom_line(aes(y = TWSS), colour = "steelblue") +
+      geom_line(aes(y = BSS), colour = "indianred2") +
         labs(x = paste0("Number of clusters"," ", "-", " ", input$Cluster_Method), y = "TWSS / BSS", title = NULL) +
           scale_x_continuous(breaks = c(seq(from = 1, to = 10, by = 1)))
 
@@ -1261,6 +1245,7 @@ output$wss <- renderPlotly({
     geom_point(aes(y = TWSS), size = 4, colour = "steelblue") +
     geom_point(aes(y = BSS), size = 4, colour = "indianred2") +
     geom_line(aes(y = TWSS), colour = "steelblue") +
+    geom_line(aes(y = BSS), colour = "indianred2") +
       labs(x = paste0("Number of clusters"," ", "-", " ", input$Cluster_Method), y = "TWSS / BSS", title = NULL) +
       scale_x_continuous(breaks = c(seq(from = 1, to = 10, by = 1)))
 
@@ -1850,7 +1835,7 @@ output$adjusted_rand_index <- renderPrint({
 #### GOOGLE MAPS ####
 output$google_map_2 <- renderGoogle_map({
 
-  key = "AIzaSyCc9CuDSoNlXf5i_7SRamt7TNpXx9qhbas"
+  key_2 = ""
 
 
   Geo_Coord_UTM = Data()[, c(3, 4)]
@@ -1872,7 +1857,7 @@ output$google_map_2 <- renderGoogle_map({
 
   Geo_Coord_DD = data.frame(Geo_Coord_LongLat, Label.Sample_ID)
 
-  google_map(key = key, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD, lon = "lon", lat = "lat", info_window = "Label.Sample_ID")
+  google_map(key = key_2, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD, lon = "lon", lat = "lat", info_window = "Label.Sample_ID")
 
 })
 

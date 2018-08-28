@@ -174,7 +174,11 @@ br(),
   ),
 br(),
 br(),
-                checkboxInput(inputId = "google_1", label = h5(icon(name = "map"), "Google Maps"), width = "100%")
+                checkboxInput(inputId = "google_1", label = h5(icon(name = "map"), "Google Maps"), width = "100%"),
+br()#,
+  # conditionalPanel(condition = "input.google_1 == true",
+  #               textInput(inputId = "API_key_1", value = "", label = h5("Google Maps API key"))
+  # )
               ),
               column(width = 10,
     conditionalPanel(condition = "input.google_1 == true",
@@ -322,7 +326,7 @@ br(),
           tabPanel(title = "Table Plot", value = "panel_Table",
 br(),
             fluidRow(
-              column(width = 12, plotlyOutput(outputId = "tabplot", height = "550px")
+              column(width = 12, plotlyOutput(outputId = "tabplot", height = "550px", width = "100%")
 
               )
             )

@@ -2,24 +2,25 @@
 % Please edit documentation in R/runOliveR.R
 \name{runOliveR}
 \alias{runOliveR}
-\title{Launches the web Shiny app "OliveR"}
+\title{Launches the web shiny App "OliveR"}
 \usage{
 runOliveR()
 }
 \arguments{
-\item{host}{optional parameter where to execute the application, default is 127.0.0.1}
+\item{host}{Optional parameter where to execute the application, default is 127.0.0.1.}
 
-\item{ui}{R script containing the code of the user interface of the shiny app}
+\item{ui}{R script containing the code of the user interface of the shiny app.}
 
-\item{server}{R script containing the code of the server of the shiny app}
+\item{server}{R script containing the code of the server of the shiny app.}
 }
 \value{
 The function loads the web application OliveR in your default browser
 through the \code{\link{shinyApp}} function, which requires a script with the
-User Interface of the app and a script of the Server.
+User Interface of the software and a script of the Server.
 }
 \description{
-Best package in the world
+Simple function to connect UI and Server of the shiny App and
+  launch it inside the default browser.
 }
 \examples{
 \dontrun{
