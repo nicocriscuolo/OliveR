@@ -19,6 +19,8 @@ Example
 
 This is a basic example which shows you how to solve a common problem:
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/rGKfrgqWcv0/0.jpg)](http://www.youtube.com/watch?v=rGKfrgqWcv0)
+
 ``` r
 ## basic example code
 ```
