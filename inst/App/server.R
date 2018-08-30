@@ -1125,7 +1125,7 @@ output$PCs_plot <- renderPlotly({
 
     else if (input$PCs_B == 2 && input$cov_cor == "Covariance") {
 
-      Biplot <- autoplot(princomp(Data()[,-c(1,2,3,4)], cor = FALSE), data = Data(), loadings = TRUE,
+      Biplot <- autoplot(princomp(Data()[,-c(1, 2, 3, 4)], cor = FALSE), data = Data(), loadings = TRUE,
         loadings.colour = "black", loadings.label = TRUE, loadings.label.size = 4) +
           geom_point(aes(name = Sample_ID, colour = Label)) +
             labs(x = paste0("PC1"," ","(",PCA_Sdev[1,],"%",")"), y = paste0("PC2"," ","(",PCA_Sdev[2,],"%",")"))

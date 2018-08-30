@@ -11,7 +11,13 @@ Installation
 You can install the released version of OliveR from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("OliveR")
+library(devtools)
+
+install_github(repo = "nicocriscuolo/OliveR")
+
+library(OliveR)
+
+runOliveR()
 ```
 
 Example
