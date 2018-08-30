@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-OliveR
-======
+OliveR 0.1.0
+============
 
 The goal of OliveR is to ...
 
@@ -19,7 +19,7 @@ Example
 
 This is a basic example which shows you how to solve a common problem:
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/rGKfrgqWcv0/0.jpg)](http://www.youtube.com/watch?v=rGKfrgqWcv0)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/WdUzk_eZjXU&t/0.jpg)](http://www.youtube.com/watch?v=WdUzk_eZjXU&t)
 
 ``` r
 ## basic example code
