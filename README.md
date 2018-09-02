@@ -20,6 +20,8 @@ library(OliveR)
 runOliveR()
 ```
 
+controllare se funziona anche senza connessione ad internet (almeno quando non si usa google maps)
+
 Example
 -------
 

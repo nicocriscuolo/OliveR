@@ -30,6 +30,7 @@ library(OliveR)
 runOliveR()
 ```
 
+controllare se funziona anche senza connessione ad internet (almeno quando non si usa google maps)
 
 
 ## Example
@@ -47,6 +48,10 @@ What is special about using `README.Rmd` instead of just `README.md`? You can in
 ```{r cars}
 summary(cars)
 ```
+
+
+
+
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
 
