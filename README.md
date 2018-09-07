@@ -8,7 +8,7 @@ OliveR is an interactive statistical software realized through the features of t
 Installation
 ------------
 
-You can install the released version of OliveR from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of OliveR from [GitHub](https://CRAN.R-project.org) with:
 
 ``` r
 library(devtools)
