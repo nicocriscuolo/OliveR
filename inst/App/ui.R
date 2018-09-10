@@ -153,9 +153,7 @@ br(),
   conditionalPanel(condition = "input.Variable_1 != 'Sample_ID' && input.Variable_2 != 'Sample_ID' && input.Variable_1 != 'Label' && input.Variable_2 != 'Label' && input.Variable_3 == '-----'",
               column(width = 2, h5("Pearson coefficient"), verbatimTextOutput(outputId = "pearson")
               )
-  )#,
-              #column(width = 6, helpText(strong("Tip:"), "To define a scatter plot, select two real variables from the drop-down menus. If you want to know the number of static units in each group use the numeric variable 'Sample_ID' and the categorical variable. Both the numeric and categorical variables can be combined with a real variable to obtain, respectively, barplot, boxplot or geoplot.")
-              #)
+  )
             ),
   conditionalPanel(condition = "input.Variable_1 == 'UTM_Est' && input.Variable_2 == 'UTM_Nord'",
             fluidRow(
@@ -175,10 +173,10 @@ br(),
 br(),
 br(),
                 checkboxInput(inputId = "google_1", label = h5(icon(name = "map"), "Google Maps"), width = "100%"),
-br()#,
-  # conditionalPanel(condition = "input.google_1 == true",
-  #               textInput(inputId = "API_key_1", value = "", label = h5("Google Maps API key"))
-  # )
+br(),
+  conditionalPanel(condition = "input.google_1 == true",
+                textInput(inputId = "API_key_1", label = h5("Google Maps API key"), value =  "")
+  )
               ),
               column(width = 10,
     conditionalPanel(condition = "input.google_1 == true",

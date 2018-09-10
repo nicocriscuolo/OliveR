@@ -814,28 +814,29 @@ output$geoplot_1 <- renderPlotly({
 #### GOOGLE MAPS ####
 output$google_map_1 <- renderGoogle_map({
 
-  key_1 <- ""
+  # key_1 <- input$API_key_1
 
-  Geo_Coord_UTM_1 = Data()[, c(3, 4)]
+  Geo_Coord_UTM_1 <- Data()[, c(3, 4)]
 
   utmcoor_1 <- SpatialPoints(Geo_Coord_UTM_1, proj4string=CRS("+proj=utm +zone=33 +datum=WGS84"))
 
   longlatcoor_1 <- spTransform(utmcoor_1, CRS("+proj=longlat + datum=WGS84"))
 
-  Geo_Coord_LongLat_1 = longlatcoor_1@coords
+  Geo_Coord_LongLat_1 <- longlatcoor_1@coords
 
+  # la funzione SpatialPoints vuole prima UTM_Est e poi UTM_Nord (quindi prima lat e poi lon)
+  # e restituisce quindi prima la longitudine e poi la latitudine, quindi rinominare correttamente le colonne
+  colnames(Geo_Coord_LongLat_1)[c(1, 2)] <- c("lon", "lat")
 
+  Label.Sample_ID_1 <- data.frame(Label.Sample_ID_1 = paste(Data()$Label, " ", "-", " ", Data()$Sample_ID))
 
-  # la funzione SpatialPoints vuole prima UTM_Est e poi UTM_Nord (quindi prima lat e poi lon) e restituisce quindi prima la longitudine e poi la latitudine, quindi rinominare correttamente le colonne
-  colnames(Geo_Coord_LongLat_1)[c(1, 2)] = c("lon", "lat")
+  Geo_Coord_DD_1 <- data.frame(Geo_Coord_LongLat_1, Label.Sample_ID_1)
 
-  Label.Sample_ID_1 = data.frame(Label.Sample_ID_1 = paste(Data()$Label, " ", "-", " ", Data()$Sample_ID))
-
-  Geo_Coord_DD_1 = data.frame(Geo_Coord_LongLat_1, Label.Sample_ID_1)
-
-
-
-  google_map(key = key_1, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_1, lon = "lon", lat = "lat", info_window = "Label.Sample_ID_1")
+  google_map(key = input$API_key_1, search_box = T) %>%
+    googleway::add_markers(data = Geo_Coord_DD_1,
+                           lon = "lon",
+                           lat = "lat",
+                           info_window = "Label.Sample_ID_1")
 
 })
 
