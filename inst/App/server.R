@@ -832,7 +832,7 @@ output$google_map_1 <- renderGoogle_map({
 
   Geo_Coord_DD_1 <- data.frame(Geo_Coord_LongLat_1, Label.Sample_ID_1)
 
-  google_map(key = input$API_key_1, search_box = T) %>%
+  google_map(key = "", search_box = T) %>%
     googleway::add_markers(data = Geo_Coord_DD_1,
                            lon = "lon",
                            lat = "lat",
@@ -1969,6 +1969,362 @@ output$download_Cluster <- downloadHandler(
   }
 
 )
+
+###############################################################################
+# Genetic Data
+output$fileUploaded_Genetic <- reactive({
+
+  return(!is.null(Data_G()))
+
+})
+
+outputOptions(output, name = "fileUploaded_Genetic", suspendWhenHidden = FALSE)
+
+
+
+### Data table Genetic
+output$filetable_G <- renderDataTable({
+
+  Data_G()
+
+}, options = list(pageLength = 10))
+
+
+
+### Mantel Test
+output$IBD <- renderPlot({
+
+  SSR_ad = data.frame(Data_G())
+  rownames(SSR_ad) = SSR_ad$Sample_ID
+  SSR_ad = SSR_ad[, -1]
+
+
+
+  SSR_AD = df2genind(SSR_ad[, -c(1, 2, 3)], ploidy = 2, sep = "/", strata = SSR_ad[, c(2, 3)])
+  SSR_AD_tab = scaleGen(SSR_AD, NA.method = input$na.method.IBD, scale = TRUE, center = FALSE) # Scale per non avere un'unità statistica arbitraria nel dendrogramma
+
+  if(input$isolation_by_distance ==  TRUE) {
+
+    if (input$distance_IBD == "binary") {
+
+      DIST_B = dist.binary(SSR_AD_tab, method = input$dist_binary.IBD)
+
+      DIST_MATRIX = as.matrix(DIST_B)
+      MATRIX = 1 - (DIST_MATRIX)^2 # Similarity Matrix
+
+      DIST = dist(MATRIX, method = input$dist_measure.IBD)
+
+    }
+
+    else if (input$distance_IBD == "geometric") {
+
+      DIST = dist(SSR_AD_tab, method = input$dist_measure.IBD)
+
+    }
+
+    DIST_Geo_S = dist(SSR_AD$strata, method = "euclidean")
+
+    mrt = mantel.randtest(DIST_Geo_S, DIST, nrepet = 10000)
+
+    plot(mrt, xlab = "r (Pearson)")
+
+  }
+
+  else {
+
+    if (input$distance_IBD == "binary") {
+
+      DIST_B = dist.binary(SSR_AD_tab, method = input$dist_binary.IBD)
+
+      DIST_MATRIX = as.matrix(DIST_B)
+      MATRIX = 1 - (DIST_MATRIX)^2 # Similarity Matrix
+
+      DIST = dist(MATRIX, method = input$dist_measure.IBD)
+
+    }
+
+    else if (input$distance_IBD == "geometric") {
+
+      DIST = dist(SSR_AD_tab, method = input$dist_measure.IBD)
+
+    }
+
+    DIST_Data = dist(Data()[, -c(1, 2, 3, 4)], method = input$dist_measure_REAL.IBD)
+
+    mrt = mantel.randtest(DIST_Data, DIST, nrepet = 10000)
+
+    plot(mrt, xlab = "r (Pearson)")
+
+  }
+
+})
+
+
+
+# Cluster Analysis
+### Heatmap similarity table
+output$heatmap <- renderPlotly({
+
+
+
+  SSR <- data.frame(Data_G())
+  rownames(SSR) = SSR$Sample_ID
+  SSR <- SSR[, -1]
+  SSR_AD <- df2genind(X = SSR[, -c(1, 2, 3)], ploidy = 2, sep = "/")
+  SSR_AD_tab <- tab(SSR_AD, NA.method = input$na.method)
+
+
+
+  if (input$distance == "binary") {
+
+    DIST_B = dist.binary(SSR_AD_tab, method = input$dist_binary)
+
+    DIST_MATRIX = as.matrix(DIST_B)
+    MATRIX = 1 - (DIST_MATRIX)^2 # Similarity Matrix
+
+  }
+
+  else if (input$distance == "geometric") {
+
+    DIST = dist(SSR_AD_tab, method = input$dist_geometric)
+
+    DIST_MATRIX = as.matrix(DIST) # Distance Matrix from geometric distance
+    MATRIX = 1/(1 + DIST_MATRIX) # Similarity normalized Matrix from geometric distance
+
+  }
+
+  heatmaply(round(MATRIX, 3), dendrogram = "both", dist_method = input$dist_geometric, hclust_method = input$dendro_method,
+            k_row = input$Cluster_Count_2, k_col = input$Cluster_Count_2,
+            fontsize_row = 4.5, fontsize_col = 4.5, column_text_angle = 90)
+
+})
+
+
+
+### Dendrogram
+output$dendrogram <- renderPlot({
+
+  dend <- hclust(DIST(), method = input$dendro_method) %>%
+    as.dendrogram %>%
+    set("labels_cex", 0.4) %>% set("labels_col", "black") %>%
+    set("branches_k_color",
+        value = c("black", "lightcoral", "deepskyblue2", "limegreen", "orange", "lightblue", "yellow1", "burlywood4", "royalblue4", "darkorange", "magenta3", "palegreen4", "darkyellow"),
+        k = input$Cluster_Count_2) %>%
+    set("leaves_pch", 19) %>% set("leaves_cex", 0.2) %>% set("leaves_col", "black")
+
+
+
+  dend_gg = as.ggdend(dend)
+  dend_gg_segments = data.frame(dend_gg$segments)
+  dend_gg_segments$col[is.na(dend_gg_segments$col)] = "black"
+
+
+
+  dend_gg_data = data.frame(dend_gg$labels)
+  colnames(dend_gg_data)[3] = "Sample_ID"
+  dend_gg_labels = merge(dend_gg_data[, -4], Data_G())
+  dend_gg_labels
+
+
+
+  if (input$tree == "dendrogram") {
+
+    DENDROGRAM = ggplot() + geom_segment(data = dend_gg_segments, aes(x = x, y = y, xend = xend, yend = yend), colour = dend_gg_segments$col, size = 0.9) +
+      geom_text(data = dend_gg_labels, aes(x = x, y = y, label = Sample_ID, angle = 90, hjust = 1, colour = Label), size = 2.5) +
+      labs(x = "Sample_ID", y = paste0("Linkage method:", " ", input$dendro_method)) +
+      lims(y = c(-0.05, NA)) +
+      theme(
+        axis.title.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        legend.title = element_text(size = 15),
+        legend.text = element_text(size = 15),
+        legend.key.size = unit(3, 'lines')
+      ) +
+      guides(colour = guide_legend(override.aes = list(size = 7)))
+
+    DENDROGRAM
+
+  }
+
+  else if (input$tree == "cladogram") {
+
+    CLADOGRAM = ggplot() + geom_segment(data = dend_gg_segments, aes(x = x, y = y, xend = xend, yend = yend), colour = dend_gg_segments$col, size = 0.7) +
+      geom_text(data = dend_gg_labels, aes(x = x, y = y, label = Sample_ID, angle = 90, hjust = 1, colour = Label), size = 2.5) +
+      labs(x = NULL, y = NULL) +
+      theme(
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.title=element_text(size = 20, face = "bold"),
+        legend.text = element_text(size = 15),
+        legend.key.size = unit(3, 'lines')
+      ) +
+      guides(colour = guide_legend(override.aes = list(size = 7))) +
+      scale_y_reverse(expand = c(0.2, 0)) + coord_polar(theta = "x")
+
+    CLADOGRAM
+
+  }
+
+})
+
+
+
+### Cutree
+output$cutree <- renderPlotly({
+
+  h1 = hclust(DIST(), method = input$dendro_method)
+
+  CUTREE <- data.frame("Nodes" = seq_along(h1$height), "Height" = h1$height)
+
+  CUTPLOT <- ggplot(CUTREE, aes(x = reorder(x = Nodes, X = Height), y = Height)) +
+    geom_point(size = 1) +
+    labs(x = "Nodes")
+
+  ggplotly(CUTPLOT)
+
+  # l <- plotly_build(g)
+  # l$layout$margin$b <- l$layout$margin$b + 50
+  # l
+
+})
+
+
+
+### Siltabplot_G
+output$siltabplot_G <- renderPlot({
+
+  g_legend <- function(a.gplot){
+    tmp <- ggplot_gtable(ggplot_build(a.gplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    legend <- tmp$grobs[[leg]]
+    return(legend)}
+
+
+  k = input$Cluster_Count_2
+
+  METHOD = hcut(DIST(), hc_func = "hclust", hc_method = c(input$dendro_method), k, graph = FALSE)
+  Data_hclust = data.frame(Cluster = METHOD$cluster)
+
+  Data_hclust$Sample_ID = rownames(Data_hclust)
+  rownames(Data_hclust) = seq(1:nrow(Data_G()))
+
+  Data_CLUSTER = merge(Data_G()[, c(1, 2, 3, 4)], Data_hclust)
+
+
+
+  SILPLOT = fviz_silhouette(METHOD)+
+    theme(
+      text=element_text(colour = "black"),
+      axis.title.y=element_text(size = 15,face="bold",margin=margin(0,15,0,0)),
+      axis.text.y=(element_text(size = 12)),
+      legend.title=element_text(size = 15,face="bold"),
+      legend.text = element_text(size = 12), plot.title=element_text(size = 15),
+      legend.position="bottom",
+      plot.margin=margin(0,15,0,40)
+    )+
+    guides(colour=guide_legend(override.aes=list(size=12)))+
+    scale_y_continuous(breaks=c(seq(0,1,by=0.2)))
+
+
+
+  TABPLOT = ggplot(Data_CLUSTER, aes(Cluster)) +
+    geom_bar(aes(fill = factor(Cluster))) +
+    facet_grid(~Label) +
+    labs(y="Number of units") +
+    scale_x_continuous(breaks=c(seq(0,8,by=1)))+
+    scale_y_continuous(breaks=c(seq(0,150,by=10)))+
+    theme(
+      text=element_text(colour = "black"),
+      axis.text.x=element_text(size = 12),
+      axis.text.y=element_text(size = 12),
+      axis.title=element_text(size = 15, face = "bold"),
+      axis.title.y=element_text(margin=margin(0,20,0,0)),
+      axis.title.x=element_text(margin=margin(20,0,0,0)),
+      strip.text.x=element_text(size = 15, face = "bold"), legend.position = "none"
+    )
+
+
+
+  Legend = g_legend(SILPLOT)
+
+  SILTABPLOT = grid.arrange(arrangeGrob(TABPLOT, SILPLOT+
+                                          theme(
+                                            legend.position="none"), nrow = 1
+  ),
+  Legend, nrow = 2, heights = c(10, 2))
+
+})
+
+
+
+### Geoplot_G
+output$geoplot_G <- renderPlotly({
+
+  k = input$Cluster_Count_2
+
+  METHOD = hcut(DIST(), hc_func = "hclust", hc_method = c(input$dendro_method), k, graph = FALSE)
+  Data_hclust = data.frame(cluster = METHOD$cluster)
+
+  Data_hclust$Sample_ID = rownames(Data_hclust)
+  rownames(Data_hclust) = seq(1:nrow(Data_G()))
+
+  Data_CLUSTER = merge(Data_G()[, c(1, 2, 3, 4)], Data_hclust)
+
+  Cluster = factor(Data_CLUSTER[, "cluster"])
+
+  MEMBERS = METHOD$cluster
+  RAND_INDEX = arandi(MEMBERS, Data_CLUSTER$Label, adjust = TRUE)
+
+  if (input$shapefiles == 1) {
+
+    Geoplot_1 <- ggplot(data = Data_CLUSTER, aes(UTM_Est, UTM_Nord))+
+      geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_1, colour = "grey50") +
+      geom_point(aes(name = Sample_ID, group = Label, colour = Cluster)) +
+      labs(x = "UTM Est [m]", y = "UTM Nord [m]")
+
+    #if (input$polygon_name_1 == FALSE) {
+
+    ggplotly(Geoplot_1)
+
+    #} else {
+
+    #     Geoplot_1_1 = Geoplot_1 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5)
+    #
+    #     ggplotly(Geoplot_1_1)
+    #
+    # }
+
+  }
+})
+
+
+
+### google Map Genetic
+output$google_map_G <- renderGoogle_map({
+
+  key = ""
+
+  Geo_Coord_UTM_G = Data_G()[, c(3, 4)]
+
+  utmcoor_G <- SpatialPoints(Geo_Coord_UTM_G, proj4string=CRS("+proj=utm +zone=33 +datum=WGS84"))
+
+  longlatcoor_G <- spTransform(utmcoor_G, CRS("+proj=longlat + datum=WGS84"))
+
+  Geo_Coord_LongLat_G = longlatcoor_G@coords
+
+  #la funzione SpatialPoints vuole prima UTM_Est e poi UTM_Nord (quindi prima lat e poi lon) e restituisce quindi prima la longitudine e poi la latitudine, quindi rinominare correttamente le colonne
+  colnames(Geo_Coord_LongLat_G)[c(1, 2)] = c("lon", "lat")
+
+  Label.Sample_ID_G = data.frame(Label.Sample_ID_G = paste(Data_G()$Label, " ", "-", " ", Data_G()$Sample_ID))
+
+  Geo_Coord_DD_G = data.frame(Geo_Coord_LongLat_G, Label.Sample_ID_G)
+
+  google_map(key = key, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_G, lon = "lon", lat = "lat", info_window = "Label.Sample_ID_G")
+
+})
 
 
 } # final bracket to close SERVER

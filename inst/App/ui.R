@@ -17,7 +17,7 @@ conditionalPanel(condition = "input.import_data > 0",
         fileInput(inputId = "Dataframe", label = h5(icon(name = "file"), "Input file (.csv)"), accept = c(".csv"))
   ),
   conditionalPanel(condition = "input.analysis_type == 2",
-          mainPanel(h5("Work in progress.."))
+        fileInput(inputId = "Dataframe_G", label = h5(icon(name = "file"), "Input file (.csv)"), accept = c(".csv"))
   )
 ),
 conditionalPanel(condition = "output.fileUploaded_Normal | output.fileUploaded_Genetic",
@@ -173,10 +173,10 @@ br(),
 br(),
 br(),
                 checkboxInput(inputId = "google_1", label = h5(icon(name = "map"), "Google Maps"), width = "100%"),
-br(),
-  conditionalPanel(condition = "input.google_1 == true",
-                textInput(inputId = "API_key_1", label = h5("Google Maps API key"), value =  "")
-  )
+br() #,
+#   conditionalPanel(condition = "input.google_1 == true",
+#                 textInput(inputId = "API_key_1", label = h5("Google Maps API key"), value =  "")
+#   )
               ),
               column(width = 10,
     conditionalPanel(condition = "input.google_1 == true",
@@ -375,12 +375,136 @@ br(),
         )
           )
       )
-  ), # parentesi chiusura CONDITIONAL PANEL con input.analysis_type = 1
+  ), # parentesi chiusura CONDITIONAL PANEL con input.analysis_type == 1
 
 ############################ GENETIC DATA
-  conditionalPanel(condition = "input.analysis_type == 2",
-        mainPanel(h5("Work in progress.."))
+conditionalPanel(condition = "input.analysis_type == 2",
+ tabsetPanel(id = "panels_genetic_analysis", type = "pills",
+tabPanel(title = h4("Dataset"),
+br(),
+#conditionalPanel(condition = "output.fileUploaded_Genetic",
+tabsetPanel(type = "pills",
+tabPanel(title = "Table",
+   br(),
+   fluidRow(
+     column(width = 12, dataTableOutput(outputId = "filetable_G")
+     )
+   )
+)
+)
+#)
+),
+             tabPanel(title = h4("Mantel Test"),
+                      br(),
+                      fluidRow(
+                        column(width = 1, radioButtons(inputId = "na.method.IBD", label = h5("NA value"), choices = list("Zero" = "zero", "Mean" = "mean"))
+                        ),
+                        column(width = 1, radioButtons(inputId = "distance_IBD", label = h5("Distance"), choices = list("Binary" = "binary", "Geometric" = "geometric"))
+                        ),
+                        conditionalPanel(condition = "input.distance_IBD == 'binary'",
+                                         column(width = 2, selectInput(inputId = "dist_binary.IBD", label = h5("Similarity coefficient"), choices = list("Jaccard Index" = 1, "Sokal & Michener" = 2, "Sokal & Sneath" = 3, "Rogers & Tanimoto" = 4, "Dice & Sorensen" = 5, "Hamann coefficient" = 6, "Ochiai" = 7, "Phi of Pearson" = 9, "S2 Coefficent" = 10), selected = 1)
+                                         )
+                        ),
+                        column(width = 2, selectInput(inputId = "dist_measure.IBD", label = h5("Distance measure"), choices = list("Euclidean" = "euclidean", "Maximum" = "maximum", "Manhattan" = "manhattan", "Canberra" = "canberra", "Minkowski" = "minkowski"))
+                        ),
+                        conditionalPanel(condition = "input.isolation_by_distance == false & output.fileUploaded_Normal",
+                                         column(width = 2, selectInput(inputId = "dist_measure_REAL.IBD", label = h5("Distance measure (Real)"), choices = list("Euclidean" = "euclidean", "Maximum" = "maximum", "Manhattan" = "manhattan", "Canberra" = "canberra", "Minkowski" = "minkowski"))
+                                         )
+                        ),
+                        column(width = 2, checkboxInput(inputId = "isolation_by_distance", label = "Isolation by distance", value = TRUE)
+                        )
+                      ),
+                      fluidRow(
+                        column(width = 12, plotOutput(outputId = "IBD", height = "600px")
+                        )
+                      )
+             ),
+             tabPanel(title = h4("Cluster Analysis"),
+                      br(),
+                      fluidRow(
+                        column(width = 1, radioButtons(inputId = "na.method", label = h5("NA value"), choices = list("Zero" = "zero", "Mean" = "mean"))
+                        ),
+                        column(width = 1, radioButtons(inputId = "distance", label = h5("Distance"), choices = list("Binary" = "binary", "Geometric" = "geometric"))
+                        ),
+                        conditionalPanel(condition = "input.distance == 'binary'",
+                                         column(width = 2, selectInput(inputId = "dist_binary", label = h5("Similarity coefficient"), choices = list("Jaccard Index" = 1, "Sokal & Michener" = 2, "Sokal & Sneath" = 3, "Rogers & Tanimoto" = 4, "Dice & Sorensen" = 5, "Hamann coefficient" = 6, "Ochiai" = 7, "Phi of Pearson" = 9, "S2 Coefficent" = 10), selected = 1)
+                                         )
+                        ),
+                        conditionalPanel(condition = "input.distance == 'geometric'",
+                                         column(width = 2, selectInput(inputId = "dist_geometric", label = h5("Geometric distance"), choices = list("Euclidean" = "euclidean", "Maximum" = "maximum", "Manhattan" = "manhattan", "Canberra" = "canberra", "Minkowski" = "minkowski"))
+                                         )
+                        ),
+                        column(width = 2, selectInput(inputId = "dendro_method", label = h5("Method"), choices = list("Complete" = "complete", "Single" = "single", "Ward" = "ward.D", "Ward - 2" = "ward.D2", "UPGMA" = "average", "WPGMA" = "mcquitty", "Median" = "median", "UPGMC" = "centroid"))
+                        ),
+                        conditionalPanel(condition = "input.panels_cluster_analysis_G == 'panel_tree' || input.panels_cluster_analysis_G == 'panel_heatmap'||input.panels_cluster_analysis_G == 'panel_silhouette_G' || input.panels_cluster_analysis_G == 'panel_geoplot_G'",
+                                         column(width = 2, numericInput(inputId = "Cluster_Count_2", label = h5("Cluster count"), value = 1, min = 1, max = 9)
+                                         )
+                        ),
+conditionalPanel(condition = "input.panels_cluster_analysis_G == 'panel_tree'",
+column(
+width = 2,
+radioButtons(inputId = "tree",
+  label = h5("Tree type"),
+  choices = list("Dendrogram" = "dendrogram",
+                 "Cladogram" = "cladogram" #, "Phylo" = "phylo"
+  )
+)
+)
+)
+                      ),
+                      tabsetPanel(id = "panels_cluster_analysis_G", type = "pills",
+                                  tabPanel(title = "Heatmap", value = "panel_heatmap",
+                                           br(),
+                                           fluidRow(
+                                             column(width = 12, align = "center", plotlyOutput(outputId = "heatmap", height = "800px")
+                                             )
+                                           )
+                                  ),
+                                  tabPanel(title = "Tree", value = "panel_tree",
+                                           br(),
+                                           fluidRow(
+                                             column(width = 12,
+                                                    plotOutput(outputId = "dendrogram",
+                                                               height = "700px"
+                                                    )
+                                             )
+                                           )
+                                  ),
+                                  tabPanel(title = "Cutree", value = "panel_cutree",
+                                           br(),
+                                           fluidRow(
+                                             column(width = 12, align = "center", plotlyOutput(outputId = "cutree", height = "600px")
+                                             )
+                                           )
+                                  ),
+                                  tabPanel(title = "Silhouette Plot", value = "panel_silhouette_G",
+                                           br(),
+                                           fluidRow(
+                                             column(width = 12, plotOutput(outputId = "siltabplot_G", height ="550px")
+                                             )
+                                           )
+                                  ),
+                                  tabPanel(title = "Geoplot", value = "panel_geoplot_G",
+                                           br(),
+                                           fluidRow(
+                                             column(width = 2,
+                                                    checkboxInput(inputId = "common_G", label = "Add municipalities"),
+                                                    checkboxInput(inputId = "google_G", label = "View on Google Maps")
+                                             ),
+                                             column(width = 10,
+                                                    conditionalPanel(condition = "input.google_G == false",
+                                                                     plotlyOutput(outputId = "geoplot_G", width = "900px", height = "820px"), align = "center"
+                                                    ),
+                                                    conditionalPanel(condition = "input.google_G == true",
+                                                                     google_mapOutput(outputId = "google_map_G", height = "650px")
+                                                    )
+                                             )
+                                           )
+                                  )
 
+                      )
+             )
+      )
   )
       ) # parentesi di chiusura pannello output principali (colonna larghezza 10)
   )
