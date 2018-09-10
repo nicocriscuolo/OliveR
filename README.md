@@ -10,7 +10,7 @@ It is a general-purpose interactive application that make available several func
 In brief, OliveR contains the following main functionalities:
 
 -   Interactive explorative graphics, with scatter plots, barplots, boxplots and geographical plots;
--   One way ANOVA;
+-   One way ANOVA (and Bonferroni post hoc test);
 -   Principal Component Analysis;
 -   Cluster analysis (hierarchical clustering, K-means, PAM, and methods for assessing cluster quality such as silhouette coefficient and adjusted rand index);
 -   Mantel test.
