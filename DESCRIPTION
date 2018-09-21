@@ -23,7 +23,7 @@ LazyData: TRUE
 Imports:
   cluster (>= 2.0.7),
   ggfortify (>= 0.4.5),
-  ggplot2 (>= 3.0.0.9),
+  ggplot2 (>= 3.0.0),
   gridExtra (>= 2.3),
   Hmisc (>= 4.1),
   pastecs (>= 1.3.21),
