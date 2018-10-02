@@ -6,7 +6,8 @@ Version: 0.1.0
 Authors@R: c(
     person("Nicola", "Criscuolo", role = c("aut", "cre"), 
             email = "nico.criscuolo981@gmail.com"),
-    person("Claudia", "Angelini", role = "aut", email = "c.angelini@na.iac.cnr.it")
+    person("Claudia", "Angelini", role = "aut", 
+            email = "c.angelini@na.iac.cnr.it")
     )
 Maintainer: Nicola Criscuolo <nico.criscuolo981@gmail.com>
 Description: The main purpose of OliveR is to display samples directly on a 

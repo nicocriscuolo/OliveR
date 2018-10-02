@@ -41,9 +41,9 @@ Data input
 
 In this first version, in order for the software to be used, you need to import two types of files:
 
--   a user-defined **.csv file**: the first four columns must contain the statistical variables that indicate, in order, the identifier of the sample, the group to which it belongs, and the UTM East and North coordinates; therefore the names of these 4 columns are: "Sample\_ID", "Label", "UTM\_Est", "UTM\_Nord". The following columns are dynamic and will contain the variables on which the user wants to perform the analyzes. These columns may contain either data of a continuous nature or data of the weight in bp (base pairs) of microsatellite loci (SSRs): in the latter case each column is defined by the name of the locus and must contain the values of the two alleles (diploid organism) divided by the symbol "/". Examples of the .csv files that you can import into OliveR is present at the following link of the repository: [CSV data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/CSV_data). Depending on the type of .csv file that will be imported, you will be able to take advantage of different software features.
+-   a user-defined **.csv file**: the first four columns must contain the statistical variables that indicate, in order, the identifier of the sample, the group to which it belongs, and the UTM East and North coordinates; therefore the names of these 4 columns are: "Sample\_ID", "Label", "UTM\_Est", "UTM\_Nord". The following columns are dynamic and will contain the variables on which the user wants to perform the analyzes. These columns may contain either data of a continuous nature or data of the weight in bp (base pairs) of microsatellite loci (SSRs): in the latter case each column is defined by the name of the locus and must contain the values of the two alleles (diploid organism) divided by the symbol "/";
 
--   a **shapefile** (**.shp**) on which to display the spatial arrangement of the samples. The shapefile must be inside a folder (local path on the user's computer) in which there are also all the accessory files that are generally associated with a shapefile and that allow its operation (as in the GIS softwares) such as .cpg, .dbf, .prj, .sbn, .sbx, .shx. If you want to downlad an example folder with geo-spatial files related to the .csv data present in this repository, you can do it at this link: [shapefile data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/shpefile_data).
+-   a **shapefile** (**.shp**) on which to display the spatial arrangement of the samples. The shapefile must be inside a folder (local path on the user's computer) in which there are also all the accessory files that are generally associated with a shapefile and that allow its operation (as in the GIS softwares) such as .cpg, .dbf, .prj, .sbn, .sbx, .shx.
 
 Example
 -------
@@ -58,10 +58,32 @@ If you have a Google API to use the maps, you can view the disposition of your s
 
 ![oliver\_maps\_2](https://user-images.githubusercontent.com/35098432/44960248-1f01bf80-aefc-11e8-8fd4-3acb9c9c9bba.jpg)
 
+Data availability
+-----------------
+
+Examples of the .csv files that you can import into OliveR are present at the following link of the repository: [CSV data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/CSV_data). Depending on the type of .csv file that will be imported, you will be able to take advantage of different software features. If you want to download an example folder with geo-spatial files related to the .csv data present in this repository, you can do it at the following link: [shapefile data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/shpefile_data).
+
 Citation
 --------
 
-OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, in order to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in southern of Italy, and the results have been included inside the paper [article title](https://) submitted to the journal [Food Chemistry](https://www.journals.elsevier.com/food-chemistry).
+OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, in order to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in southern of Italy, and the results have been included inside the paper *High biodiversity of ancient olive trees of South of Italy highlighted by morphometric, biochemical and genetic data* (submitted). If you use this package in your paper please cite:
+
+    #> 
+    #> To cite package 'OliveR' in publications use:
+    #> 
+    #>   Nicola Criscuolo and Claudia Angelini (2018). OliveR:
+    #>   Multivariate analysis of data and geographic display of results.
+    #>   R package version 0.1.0. https://github.com/nicocriscuolo/OliveR
+    #> 
+    #> A BibTeX entry for LaTeX users is
+    #> 
+    #>   @Manual{,
+    #>     title = {OliveR: Multivariate analysis of data and geographic display of results},
+    #>     author = {Nicola Criscuolo and Claudia Angelini},
+    #>     year = {2018},
+    #>     note = {R package version 0.1.0},
+    #>     url = {https://github.com/nicocriscuolo/OliveR},
+    #>   }
 
 Contact
 -------
