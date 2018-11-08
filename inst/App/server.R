@@ -1,6 +1,6 @@
 server <- function(input, output, session) {
 
-# Roots for read all the directories of the computer with the ShinyDirChoose function
+# Roots for read all the directories of the computer with the ShinyDirChoose function #
 roots <- getVolumes()
 
 shinyDirChoose(input, id = "shape_folder", roots = roots, session = session) # first directory for shapefiles
