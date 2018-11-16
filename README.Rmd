@@ -35,7 +35,7 @@ You can install the released version of OliveR from [GitHub](https://CRAN.R-proj
 ``` r
 library(devtools)
 
-install_github(repo = "nicocriscuolo/OliveR")
+install_github(repo = "nicocriscuolo/OliveR", dependencies = TRUE)
 ```
 
 Once the package is loaded and the dependencies installed, you can run the software in the default browser through the following functions:
