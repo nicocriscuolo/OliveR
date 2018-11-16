@@ -66,7 +66,7 @@ Examples of the .csv files that you can import into OliveR are present at the fo
 Citation
 --------
 
-OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, in order to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in southern of Italy, and the results have been included inside the paper *High biodiversity of ancient olive trees of South of Italy highlighted by morphometric, biochemical and genetic data* (submitted). If you use this package in your paper please cite:
+OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, in order to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in southern of Italy, and the results have been included inside the paper *High biodiversity arises from the analyses of morphometric, biochemical and genetic data in ancient olive trees of South of Italy* (submitted). If you use this package in your paper please cite:
 
     #> 
     #> To cite package 'OliveR' in publications use:
