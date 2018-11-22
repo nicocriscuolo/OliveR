@@ -814,8 +814,6 @@ output$geoplot_1 <- renderPlotly({
 #### GOOGLE MAPS ####
 output$google_map_1 <- renderGoogle_map({
 
-  # key_1 <- input$API_key_1
-
   Geo_Coord_UTM_1 <- Data()[, c(3, 4)]
 
   utmcoor_1 <- SpatialPoints(Geo_Coord_UTM_1, proj4string=CRS("+proj=utm +zone=33 +datum=WGS84"))
@@ -832,7 +830,7 @@ output$google_map_1 <- renderGoogle_map({
 
   Geo_Coord_DD_1 <- data.frame(Geo_Coord_LongLat_1, Label.Sample_ID_1)
 
-  google_map(key = "", search_box = T) %>%
+  google_map(key = paste0(input$API_key_1), search_box = T) %>%
     googleway::add_markers(data = Geo_Coord_DD_1,
                            lon = "lon",
                            lat = "lat",
@@ -1836,9 +1834,6 @@ output$adjusted_rand_index <- renderPrint({
 #### GOOGLE MAPS ####
 output$google_map_2 <- renderGoogle_map({
 
-  key_2 <- ""
-
-
   Geo_Coord_UTM = Data()[, c(3, 4)]
 
   utmcoor <- SpatialPoints(Geo_Coord_UTM, proj4string=CRS("+proj=utm +zone=33 +datum=WGS84"))
@@ -1858,7 +1853,8 @@ output$google_map_2 <- renderGoogle_map({
 
   Geo_Coord_DD = data.frame(Geo_Coord_LongLat, Label.Sample_ID)
 
-  google_map(key = key_2, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD, lon = "lon", lat = "lat", info_window = "Label.Sample_ID")
+  google_map(key = paste0(input$API_key_2),
+             search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD, lon = "lon", lat = "lat", info_window = "Label.Sample_ID")
 
 })
 
@@ -2281,31 +2277,126 @@ output$geoplot_G <- renderPlotly({
   if (input$shapefiles == 1) {
 
     Geoplot_1 <- ggplot(data = Data_CLUSTER, aes(UTM_Est, UTM_Nord))+
-      geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_1, colour = "grey50") +
+      geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_G_1, colour = "grey50") +
       geom_point(aes(name = Sample_ID, group = Label, colour = Cluster)) +
       labs(x = "UTM Est [m]", y = "UTM Nord [m]")
 
-    #if (input$polygon_name_1 == FALSE) {
+    if (input$polygon_name_G_1 == FALSE) {
 
-    ggplotly(Geoplot_1)
+        ggplotly(Geoplot_1)
 
-    #} else {
+      } else {
 
-    #     Geoplot_1_1 = Geoplot_1 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5)
-    #
-    #     ggplotly(Geoplot_1_1)
-    #
-    # }
+        Geoplot_1_1 <- Geoplot_1 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5)
 
-  }
+        ggplotly(Geoplot_1_1)
+
+      }
+
+    } else if (input$shapefiles == 2) {
+
+      Geoplot_2 <- ggplot(data = Data_CLUSTER, aes(UTM_Est, UTM_Nord))+
+        geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_G_1, colour = "grey50") +
+        geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_G_2, colour = "grey50") +
+        geom_point(aes(name = Sample_ID, group = Label, colour = Cluster)) +
+        labs(x = "UTM Est [m]", y = "UTM Nord [m]")
+
+      if (input$polygon_name_G_1 == FALSE && input$polygon_name_G_2 == FALSE) {
+
+        ggplotly(Geoplot_2)
+
+      } else if (input$polygon_name_G_1 == TRUE && input$polygon_name_G_2 == FALSE) {
+
+        Geoplot_2_1 <- Geoplot_2 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_2_1)
+
+      } else if (input$polygon_name_G_1 == FALSE && input$polygon_name_G_2 == TRUE) {
+
+        Geoplot_2_1 <- Geoplot_2 + geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_2_1)
+
+      } else if (input$polygon_name_G_1 == TRUE && input$polygon_name_G_2 == TRUE) {
+
+        Geoplot_2_1 <- Geoplot_2 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_2_1)
+
+      }
+
+    } else if (input$shapefiles == 3) {
+
+      Geoplot_3 <- ggplot(data = Data_CLUSTER, aes(UTM_Est, UTM_Nord)) +
+        geom_polygon(aes(group = group), Shapefile_1_df(), fill = input$Colours_G_1, colour = "grey50") +
+        geom_polygon(aes(group = group), Shapefile_2_df(), fill = input$Colours_G_2, colour = "grey50") +
+        geom_polygon(aes(group = group), Shapefile_3_df(), fill = input$Colours_G_3, colour = "grey50") +
+        geom_point(aes(name = Sample_ID, group = Label, colour = Cluster)) +
+        labs(x = "UTM Est [m]", y = "UTM Nord [m]")
+
+
+      if (input$polygon_name_G_1 == FALSE && input$polygon_name_G_2 == FALSE && input$polygon_name_G_3 == FALSE) {
+
+        ggplotly(Geoplot_3)
+
+      } else if (input$polygon_name_G_1 == TRUE && input$polygon_name_G_2 == FALSE && input$polygon_name_G_3 == FALSE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == FALSE && input$polygon_name_G_2 == TRUE && input$polygon_name_G_3 == FALSE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == FALSE && input$polygon_name_G_2 == FALSE && input$polygon_name_G_3 == TRUE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_3(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == TRUE && input$polygon_name_G_2 == TRUE && input$polygon_name_G_3 == FALSE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == TRUE && input$polygon_name_G_2 == FALSE && input$polygon_name_G_3 == TRUE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_3(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == FALSE && input$polygon_name_G_2 == TRUE && input$polygon_name_G_3 == TRUE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_3(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      } else if (input$polygon_name_2_1 == TRUE && input$polygon_name_G_2 == TRUE && input$polygon_name_G_3 == TRUE) {
+
+        Geoplot_3_1 <- Geoplot_3 + geom_text(data = Name_Centroids_Shapefile_1(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_2(), aes(label = id), size = 2.5) +
+          geom_text(data = Name_Centroids_Shapefile_3(), aes(label = id), size = 2.5)
+
+        ggplotly(Geoplot_3_1)
+
+      }
+
+    }
+
 })
 
 
 
 ### google Map Genetic
 output$google_map_G <- renderGoogle_map({
-
-  key = ""
 
   Geo_Coord_UTM_G = Data_G()[, c(3, 4)]
 
@@ -2315,14 +2406,18 @@ output$google_map_G <- renderGoogle_map({
 
   Geo_Coord_LongLat_G = longlatcoor_G@coords
 
-  #la funzione SpatialPoints vuole prima UTM_Est e poi UTM_Nord (quindi prima lat e poi lon) e restituisce quindi prima la longitudine e poi la latitudine, quindi rinominare correttamente le colonne
+  # la funzione SpatialPoints vuole prima UTM_Est e poi UTM_Nord (quindi prima lat e poi lon) e restituisce quindi prima la longitudine e poi la latitudine, quindi rinominare correttamente le colonne
   colnames(Geo_Coord_LongLat_G)[c(1, 2)] = c("lon", "lat")
 
   Label.Sample_ID_G = data.frame(Label.Sample_ID_G = paste(Data_G()$Label, " ", "-", " ", Data_G()$Sample_ID))
 
   Geo_Coord_DD_G = data.frame(Geo_Coord_LongLat_G, Label.Sample_ID_G)
 
-  google_map(key = key, search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_G, lon = "lon", lat = "lat", info_window = "Label.Sample_ID_G")
+  google_map(key = paste0(input$API_key_G),
+             search_box = T) %>% googleway::add_markers(data = Geo_Coord_DD_G,
+                                                        lon = "lon",
+                                                        lat = "lat",
+                                                        info_window = "Label.Sample_ID_G")
 
 })
 

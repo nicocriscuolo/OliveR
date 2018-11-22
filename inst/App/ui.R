@@ -173,13 +173,15 @@ br(),
 br(),
 br(),
                 checkboxInput(inputId = "google_1", label = h5(icon(name = "map"), "Google Maps"), width = "100%"),
-br() #,
-#   conditionalPanel(condition = "input.google_1 == true",
-#                 textInput(inputId = "API_key_1", label = h5("Google Maps API key"), value =  "")
-#   )
+br(),
+  conditionalPanel(condition = "input.google_1 == true",
+                textInput(inputId = "API_key_1",
+                          label = h5("Google Maps API key"),
+                          value =  "")
+  )
               ),
               column(width = 10,
-    conditionalPanel(condition = "input.google_1 == true",
+    conditionalPanel(condition = "input.google_1 == true && input.API_key_1",
                 google_mapOutput(outputId = "google_map_1", height = "650px")
     ),
     conditionalPanel(condition = "input.google_1 == false",
@@ -354,16 +356,22 @@ br(),
   ),
 br(),
 br(),
-                h5("Adjusted Rand Index"),
-                verbatimTextOutput(outputId = "adjusted_rand_index"),
+            h5("Adjusted Rand Index"),
+            verbatimTextOutput(outputId = "adjusted_rand_index"),
 br(),
 br(),
-                checkboxInput(inputId = "google_2",
-                              label = h5(icon(name = "map"), "Google Maps"),
-                              width = "100%")
+            checkboxInput(inputId = "google_2",
+                          label = h5(icon(name = "map"), "Google Maps"),
+                          width = "100%"),
+br(),
+  conditionalPanel(condition = "input.google_2 == true",
+                   textInput(inputId = "API_key_2",
+                             label = h5("Google Maps API key"),
+                             value =  "")
+  )
               ),
               column(width = 10,
-  conditionalPanel(condition = "input.google_2 == true",
+  conditionalPanel(condition = "input.google_2 == true && input.API_key_2",
                   google_mapOutput(outputId = "google_map_2", height = "650px")
   ),
   conditionalPanel(condition = "input.google_2 == false",
@@ -485,26 +493,50 @@ radioButtons(inputId = "tree",
                                            )
                                   ),
                                   tabPanel(title = "Geoplot", value = "panel_geoplot_G",
-                                           br(),
-                                           fluidRow(
-                                             column(width = 2,
-                                                    checkboxInput(inputId = "common_G", label = "Add municipalities"),
-                                                    checkboxInput(inputId = "google_G", label = "View on Google Maps")
-                                             ),
-                                             column(width = 10,
-                                                    conditionalPanel(condition = "input.google_G == false",
-                                                                     plotlyOutput(outputId = "geoplot_G", width = "900px", height = "820px"), align = "center"
-                                                    ),
-                                                    conditionalPanel(condition = "input.google_G == true",
-                                                                     google_mapOutput(outputId = "google_map_G", height = "650px")
-                                                    )
-                                             )
-                                           )
-                                  )
+br(),
+  fluidRow(
+    column(width = 2,
+           colourpicker::colourInput(inputId = "Colours_G_1", label = h5("Shapefile n° 1"), value = "#D6FFD6", allowTransparent = TRUE),
+           checkboxInput(inputId = "polygon_name_G_1", label = "Polygon name"),
+br(),
+  conditionalPanel(condition = "input.shapefiles == 2 | input.shapefiles == 3",
+                    colourpicker::colourInput(inputId = "Colours_G_2", label = h5("Shapefile n° 2"), value = "#E0F7FF", allowTransparent = TRUE),
+                    checkboxInput(inputId = "polygon_name_G_2", label = "Polygon name")
+   ),
+br(),
+  conditionalPanel(condition = "input.shapefiles == 3",
+                  colourpicker::colourInput(inputId = "Colours_G_3", label = h5("Shapefile n° 3"), value = "#FFFFF0", allowTransparent = TRUE),
+                  checkboxInput(inputId = "polygon_name_G_3", label = "Polygon name")
+  ),
+ br(),
+ br(),
+           checkboxInput(inputId = "google_G",
+                         label = h5(icon(name = "map"), "Google Maps"),
+                         width = "100%"),
+br(),
+  conditionalPanel(condition = "input.google_G == true",
+                   textInput(inputId = "API_key_G",
+                             label = h5("Google Maps API key"),
+                             value =  "")
+  )
+     ),
+     column(width = 10,
+            conditionalPanel(condition = "input.google_G == false",
+                             plotlyOutput(outputId = "geoplot_G",
+                                          width = "900px",
+                                          height = "820px"),
+                             align = "center"
+            ),
+            conditionalPanel(condition = "input.google_G == true && input.API_key_G",
+                             google_mapOutput(outputId = "google_map_G", height = "650px")
+            )
+     )
+   )
+)
 
-                      )
-             )
-      )
+)
+)
+)
   )
       ) # parentesi di chiusura pannello output principali (colonna larghezza 10)
   )
