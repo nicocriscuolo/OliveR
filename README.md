@@ -18,7 +18,7 @@ In brief, OliveR contains the following main functionalities:
 Installation
 ------------
 
-You can install the released version of OliveR from [GitHub](https://CRAN.R-project.org) with:
+You can install the released version of OliveR from [GitHub](https://github.com) with:
 
 ``` r
 library(devtools)
