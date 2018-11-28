@@ -1,0 +1,10 @@
+
+1. Install all the dependencies with the following line command:
+
+install.packages(pkgs = c("cluster", "ggfortify", "ggplot2", "Hmisc", "pastecs", "plotly", "colourpicker", "factoextra", "googleway", "gridExtra", "maptools", "mcclust", "rgdal", "shiny", "shinyFiles", "wordcloud", "ade4", "adegenet", "car", "dendextend", "heatmaply", "digest", "ps", "Rcpp", "rlang"))
+
+
+
+2. Install OliveR:
+
+install_github(repo = "nicocriscuolo/OliveR")
