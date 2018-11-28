@@ -1,10 +1,12 @@
+1. Install "Rtools" (version > 3.5) from here: https://cran.r-project.org/bin/windows/Rtools/ (Windows users only)
 
-1. Install all the dependencies with the following line command:
+
+2. Install all the dependencies with the following line command:
 
 install.packages(pkgs = c("cluster", "ggfortify", "ggplot2", "Hmisc", "pastecs", "plotly", "colourpicker", "factoextra", "googleway", "gridExtra", "maptools", "mcclust", "rgdal", "shiny", "shinyFiles", "wordcloud", "ade4", "adegenet", "car", "dendextend", "heatmaply", "digest", "ps", "Rcpp", "rlang"))
 
 
 
-2. Install OliveR:
+3. Install OliveR:
 
 install_github(repo = "nicocriscuolo/OliveR")
