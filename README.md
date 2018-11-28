@@ -34,7 +34,7 @@ library(OliveR)
 runOliveR()
 ```
 
-OliveR 0.1.0 works on all types of browsers (Internet Explorer, Safari, Chrome, etc.) and in its current version, if you do not use the features of Google Maps, it can also work locally and then offline. All you have to do is to install the updated versions of [R](https://www.r-project.org) and [RStudio](https://www.rstudio.com).
+OliveR 0.1.0 works on all types of browsers (Internet Explorer, Safari, Chrome, etc.) and in its current version, if you do not use the features of Google Maps, it can also work locally and then offline. All you have to do is to install the updated versions of [R](https://www.r-project.org) (&gt;= 3.5) and [RStudio](https://www.rstudio.com).
 
 Data input
 ----------
