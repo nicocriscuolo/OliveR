@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 
 # OliveR 0.1.0
 
-OliveR is a R package containing a [shiny](https://shiny.rstudio.com) application that provides a wide series of statistical tools for exploring and analyzing both quantitative (such as morphometric or biochemical) and genetic data that can be associated to geographical coordinates. Through the use of shapefiles, the application allows to visualize both data and results of a statistical analysis directly on a geographical basis. 
+OliveR is an R package containing a [shiny](https://shiny.rstudio.com) application that provides a vast series of statistical tools for exploring and analyzing both quantitative (such as morphometric or biochemical) and genetic data that can be associated to geographical coordinates. Through the use of shapefiles, the application allows visualizing both data and results of a statistical analysis directly on a geographical basis. 
 
-It is a general-purpose interactive application that make available several functions for explorative data analysis as well as several standard methods for multivariate statistics (such as Linear models, Principal Component Analysis, Cluster analysis, etc.) and therefore guides the user in visualizing, exploring and analyzing the data by a simple point-and-click approach.
+It is a general-purpose interactive application that makes available several functions for explorative data analysis as well as several standard methods for multivariate statistics (such as Linear models, Principal Component Analysis, Cluster analysis, etc.) and therefore guides the user in visualizing, exploring and analyzing the data by a simple point-and-click approach.
 
 In brief, OliveR contains the following main functionalities: 
 
@@ -50,15 +50,15 @@ runOliveR()
 
 OliveR 0.1.0 works on all types of browsers (Internet Explorer, Safari, Chrome, etc.) and in its current version, if you do not use the features of Google Maps, it can also work locally and then offline. All you have to do is to install the updated versions of [R](https://www.r-project.org) (>= 3.5) and [RStudio](https://www.rstudio.com).
 
-If you have trouble installing StructuRly you can follow the instructions present in the file at this [link](https://github.com/nicocriscuolo/OliveR/blob/master/inst/Instructions_install_OliveR.txt).
+If you have trouble installing OliveR, you can follow the instructions present in the file at this [link](https://github.com/nicocriscuolo/OliveR/blob/master/inst/Instructions_install_OliveR.txt).
 
 ## Data input
 
-In this first version, in order for the software to be used, you need to import two types of files:
+In this first version, to use the software, you need to import two types of files:
 
-- a user-defined **.csv file**: the first four columns must contain the statistical variables that indicate, in order, the identifier of the sample, the group to which it belongs, and the UTM East and North coordinates; therefore the names of these 4 columns are: "Sample_ID", "Label", "UTM_Est", "UTM_Nord". The following columns are dynamic and will contain the variables on which the user wants to perform the analyzes. These columns may contain either data of a continuous nature or data of the weight in bp (base pairs) of microsatellite loci (SSRs): in the latter case each column is defined by the name of the locus and must contain the values of the two alleles (diploid organism) divided by the symbol "/";
+- a user-defined **.csv file**: the first four columns must contain the statistical variables that indicate, in order, the identifier of the sample, the group to which it belongs, and the UTM East and North coordinates; therefore the names of these 4 columns are: "Sample_ID", "Label", "UTM_Est", "UTM_Nord". The following columns are dynamic and must contain the variables on which the user wants to perform the analyzes. These columns may contain either data of a continuous nature or data of the weight in bp (base pairs) of microsatellite loci (SSRs): in the latter case each column is defined by the name of the locus and must contain the values of the two alleles (diploid organism) divided by the symbol "/";
 
-- a **shapefile** (**.shp**) on which to display the spatial arrangement of the samples. The shapefile must be inside a folder (local path on the user's computer) in which there are also all the accessory files that are generally associated with a shapefile and that allow its operation (as in the GIS softwares) such as .cpg, .dbf, .prj, .sbn, .sbx, .shx.
+- a **shapefile** (**.shp**) on which to display the spatial arrangement of the samples. The shapefile must be inside a folder (local path on the user's computer) in which there are also all the accessory files that are generally associated with a shapefile and that allow its operation (as in the GIS software) such as .cpg, .dbf, .prj, .sbn, .sbx, .shx.
 
 ## Example
 
@@ -78,7 +78,7 @@ Examples of the .csv files that you can import into OliveR are present at the fo
 
 ## Citation
 
-OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, in order to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in southern of Italy, and the results of the data analysis done on the sample datasets available in this reporisitory have been included inside the paper *High biodiversity arises from the analyses of morphometric, biochemical and genetic data in ancient olive trees of South of Italy* (submitted). If you use this package in your paper please cite:
+OliveR was designed to analyze data of a continuous and genetic (SSRs) nature obtained from samples that are spatially distributed in a given geographical area, to quantify the differences in morphometric, biochemical and genetic parameters. Its first use, from which the name derives, was made on olive trees present in the south of Italy. The results of the data analysis done on the sample datasets available in this repository have been included inside the paper *High biodiversity arises from the analyses of morphometric, biochemical and genetic data in ancient olive trees of South of Italy* (submitted). If you use this package in your paper, please cite:
 
 ```{r, echo = FALSE}
 citation(package = "OliveR")
