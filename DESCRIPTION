@@ -27,7 +27,7 @@ Imports:
   ggplot2 (>= 3.0.0),
   Hmisc (>= 4.1),
   pastecs (>= 1.3.21),
-  plotly (>= 4.8.0.9)
+  plotly (>= 4.8.0)
 Depends: 
   R (>= 3.5),
   colourpicker (>= 1.0),
