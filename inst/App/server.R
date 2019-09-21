@@ -3,7 +3,10 @@ server <- function(input, output, session) {
 # Roots for read all the directories of the computer with the ShinyDirChoose function #
 roots <- getVolumes()
 
-shinyDirChoose(input, id = "shape_folder", roots = roots, session = session) # first directory for shapefiles
+shinyDirChoose(input,
+               id = "shape_folder",
+               roots = roots,
+               session = session) # first directory for shapefiles
 
 # Shapefile Directory text
 output$shape_folder_datapath <- renderText({
@@ -816,7 +819,7 @@ output$google_map_1 <- renderGoogle_map({
 
   Geo_Coord_UTM_1 <- Data()[, c(3, 4)]
 
-  utmcoor_1 <- SpatialPoints(Geo_Coord_UTM_1, proj4string=CRS("+proj=utm +zone=33 +datum=WGS84"))
+  utmcoor_1 <- SpatialPoints(Geo_Coord_UTM_1, proj4string = CRS("+proj=utm +zone=33 +datum=WGS84"))
 
   longlatcoor_1 <- spTransform(utmcoor_1, CRS("+proj=longlat + datum=WGS84"))
 
