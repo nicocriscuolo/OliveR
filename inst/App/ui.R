@@ -63,7 +63,7 @@ br(),
 br(),
             fluidRow(
               column(width = 12,
-                dataTableOutput(outputId = "filetable_A")
+                DT::dataTableOutput(outputId = "filetable_A")
               )
             )
           ),
@@ -79,7 +79,7 @@ br(),
 br(),
             fluidRow(
               column(width = 12,
-                dataTableOutput(outputId = "stats")
+                DT::dataTableOutput(outputId = "stats")
               )
             )
           ),
@@ -395,7 +395,7 @@ tabsetPanel(type = "pills",
 tabPanel(title = "Table",
    br(),
    fluidRow(
-     column(width = 12, dataTableOutput(outputId = "filetable_G")
+     column(width = 12, DT::dataTableOutput(outputId = "filetable_G")
      )
    )
 )

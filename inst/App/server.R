@@ -349,7 +349,7 @@ outputOptions(output,
 
 ################################ TABLE: DATASET NORMAL ####
 #### DISPLAY DATA TABLE ####
-output$filetable_A <- renderDataTable({
+output$filetable_A <- DT::renderDataTable({
 
   Data()
 
@@ -365,7 +365,7 @@ output$summary_data <- renderPrint({
 })
 
 #### BASIC STATS ####
-output$stats <- renderDataTable({
+output$stats <- DT::renderDataTable({
 
   Stats  <- as.data.frame(stat.desc(Data()[, -c(1, 2)]))
 
@@ -1982,7 +1982,7 @@ outputOptions(output, name = "fileUploaded_Genetic", suspendWhenHidden = FALSE)
 
 
 ### Data table Genetic
-output$filetable_G <- renderDataTable({
+output$filetable_G <- DT::renderDataTable({
 
   Data_G()
 
