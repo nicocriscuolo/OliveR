@@ -112,10 +112,9 @@ Examples of the .csv files that you can import into OliveR are present
 at the following link of the repository: [CSV
 data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/CSV_data).
 Depending on the type of .csv file that will be imported, you will be
-able to take advantage of different software features. If you want to
-download an example folder with geo-spatial files related to the .csv
-data present in this repository, you can do it at the following link:
-[shapefile
+able to take advantage of different software features. To download an
+example folder with geo-spatial files related to the .csv data present
+in this repository, please visit the following link: [shapefile
 data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/shpefile_data).
 
 ## Citation
