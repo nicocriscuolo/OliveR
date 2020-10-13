@@ -227,8 +227,20 @@ br(),
           tabPanel(title = h4(icon(name = "arrows"), "PCA"),
 br(),
             fluidRow(
-              column(width = 1, radioButtons(inputId = "cov_cor", label = h5("Matrix"), choices = c("Correlation", "Covariance"), selected = "Correlation")
+              column(width = 12,
+                     radioButtons(inputId = "cov_cor",
+                                  label = h5("Matrix"),
+                                  choices = c("Correlation", "Covariance"),
+                                  selected = "Correlation"),
+                     p("If your dataset contains one or more ",
+                       tags$b("costant variables",
+                              .noWS = "outside"),
+                       ", use the covariance matrix to compute the PCA.",
+                       style = "color: gray;")
               ),
+
+br(),
+
   conditionalPanel(condition = "input.panels_PCA == 'panel_Screeplot'",
               column(width = 1, checkboxInput(inputId = "choose_variance", label = "Variance explained", value = FALSE)
               )
@@ -299,7 +311,13 @@ br(),
   conditionalPanel(condition = "input.panels_cluster_analysis == 'panel_Table' || input.panels_cluster_analysis == 'panel_Silhouette' || input.panels_cluster_analysis == 'panel_Geoplot'",
               column(width = 2, h5("Table of cluster"), downloadButton(outputId = "download_Cluster", label = "Download")
               )
-  )
+  ),
+              column(width = 12,
+                     p("If your dataset contains one or more ",
+                       tags$b("costant variables",
+                              .noWS = "outside"),
+                       ", use the covariance matrix to compute the PCA.",
+                       style = "color: gray;"))
             ),
         tabsetPanel(id = "panels_cluster_analysis", type = "pills",
           tabPanel(title = "WSS Plot",

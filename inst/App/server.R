@@ -1,12 +1,14 @@
+
 server <- function(input, output, session) {
 
 # Roots for read all the directories of the computer with the ShinyDirChoose function #
-roots <- getVolumes()
+roots <- c(Home = fs::path_home(), "R Installation" = R.home(), getVolumes()())
 
 shinyDirChoose(input,
                id = "shape_folder",
                roots = roots,
-               session = session) # first directory for shapefiles
+               session = session,
+               allowDirCreate = TRUE)
 
 # Shapefile Directory text
 output$shape_folder_datapath <- renderText({
@@ -14,8 +16,6 @@ output$shape_folder_datapath <- renderText({
   parseDirPath(roots, input$shape_folder)
 
 })
-
-
 
 
 
@@ -92,6 +92,17 @@ Data <- reactive({
 
 })
 
+#####= Identify costant variables =#####
+# costant_variables <- reactive({
+#
+#   req(Data())
+#
+#   costant_variables <- dataPreparation::whichAreConstant(Data())
+#
+#   return(costant_variables)
+#
+# })
+
 #### DATASET TO MERGE ####
 Data_M <- reactive({
 
@@ -132,11 +143,11 @@ Amount <- reactive({
 #### SHAPEFILES ####
 Shapefile_1 <- reactive({
 
-    Shapefile_1 <- readShapeSpatial(paste0(parseDirPath(roots,
-                                                        input$shape_folder),
-                                           "/",
-                                           input$shapefile_name_1,
-                                           ".shp"))
+    Shapefile_1 <- readOGR(dsn = paste0(parseDirPath(roots,
+                                                     input$shape_folder),
+                                        "/",
+                                        input$shapefile_name_1,
+                                        ".shp"))
 
     return(Shapefile_1)
 
@@ -144,11 +155,11 @@ Shapefile_1 <- reactive({
 
 Shapefile_2 <- reactive({
 
-  Shapefile_2 <- readShapeSpatial(paste0(parseDirPath(roots,
-                                                      input$shape_folder),
-                                         "/",
-                                         input$shapefile_name_2,
-                                         ".shp"))
+  Shapefile_2 <- readOGR(dsn = paste0(parseDirPath(roots,
+                                                   input$shape_folder),
+                                      "/",
+                                      input$shapefile_name_2,
+                                      ".shp"))
 
   return(Shapefile_2)
 
@@ -156,11 +167,11 @@ Shapefile_2 <- reactive({
 
 Shapefile_3 <- reactive({
 
-  Shapefile_3 <- readShapeSpatial(paste0(parseDirPath(roots,
-                                                      input$shape_folder),
-                                         "/",
-                                         input$shapefile_name_3,
-                                         ".shp"))
+  Shapefile_3 <- readOGR(dsn = paste0(parseDirPath(roots,
+                                                   input$shape_folder),
+                                      "/",
+                                      input$shapefile_name_3,
+                                      ".shp"))
 
   return(Shapefile_3)
 
@@ -233,11 +244,13 @@ PCA <- reactive({
 
   if (input$cov_cor == "Correlation") {
 
-    PCA <- princomp(Data()[, -c(1, 2, 3, 4)], cor = TRUE)
+    PCA <- princomp(Data()[, -c(1:4)],
+                    cor = TRUE)
 
   } else if (input$cov_cor == "Covariance") {
 
-    PCA <- princomp(Data()[, -c(1, 2, 3, 4)], cor = FALSE)
+    PCA <- princomp(Data()[, -c(1:4)],
+                    cor = FALSE)
 
   }
 
@@ -367,7 +380,7 @@ output$summary_data <- renderPrint({
 #### BASIC STATS ####
 output$stats <- DT::renderDataTable({
 
-  Stats  <- as.data.frame(stat.desc(Data()[, -c(1, 2)]))
+  Stats  <- as.data.frame( stat.desc(Data()[, -c(1, 2)]))
 
   Stats_Data <- data.frame(Stats = rownames(Stats), round(Stats, 3))
 
@@ -392,7 +405,10 @@ output$image_1 <- renderImage({
 
 output$image_2 <- renderImage({
 
-  shinyDirChoose(input, id = "image_2_folder", roots = roots, session = session)
+  shinyDirChoose(input,
+                 id = "image_2_folder",
+                 roots = roots,
+                 session = session)
 
   return(list(
     src = paste0(parseDirPath(roots, input$image_2_folder), "/", input$sample_name),
@@ -905,8 +921,8 @@ output$bonferroni <- renderPrint({
 #### SUMMARY PCA ####
 output$summary_PCA <- renderPrint({
 
-    options(digits = 5)
-    summary(PCA())
+  options(digits = 5)
+  summary(PCA())
 
 })
 
