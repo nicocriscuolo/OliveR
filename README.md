@@ -88,8 +88,9 @@ of files:
 
 ## Example
 
-Below is a link to the [YouTube](https://www.youtube.com/?gl=IT&hl=it)
-video of the application showing an example of using the software:
+Below is a link to the
+[YouTube](http://www.youtube.com/watch?v=WdUzk_eZjXU) video of the
+application showing an example of using the software:
 
 [![IMAGE ALT TEXT
 HERE](http://img.youtube.com/vi/WdUzk_eZjXU/0.jpg)](http://www.youtube.com/watch?v=WdUzk_eZjXU)
@@ -99,8 +100,7 @@ of your samples, and the information associated with it, including
 through the [Google Maps](https://www.google.com/maps) software. You can
 generate your API key at any time to access the software within the
 [Google Cloud Platform](https://cloud.google.com) and display the map
-directly on
-OliveR.
+directly on OliveR.
 
 ![oliver\_maps\_1](https://user-images.githubusercontent.com/35098432/44960136-3049cc80-aefa-11e8-9bf8-b3641b1d6e04.jpg)
 

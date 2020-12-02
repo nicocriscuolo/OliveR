@@ -62,7 +62,7 @@ In this first version, to use the software, you need to import two types of file
 
 ## Example
 
-Below is a link to the [YouTube](https://www.youtube.com/?gl=IT&hl=it) video of the application showing an example of using the software:
+Below is a link to the [YouTube](http://www.youtube.com/watch?v=WdUzk_eZjXU) video of the application showing an example of using the software:
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/WdUzk_eZjXU/0.jpg)](http://www.youtube.com/watch?v=WdUzk_eZjXU)
 
@@ -74,7 +74,7 @@ If you have a Google API to use the maps, you can view the disposition of your s
 
 ## Data availability
 
-Examples of the .csv files that you can import into OliveR are present at the following link of the repository: [CSV data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/CSV_data). Depending on the type of .csv file that will be imported, you will be able to take advantage of different software features. If you want to download an example folder with geo-spatial files related to the .csv data present in this repository, you can do it at the following link: [shapefile data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/shpefile_data).
+Examples of the .csv files that you can import into OliveR are present at the following link of the repository: [CSV data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/CSV_data). Depending on the type of .csv file that will be imported, you will be able to take advantage of different software features. To download an example folder with geo-spatial files related to the .csv data present in this repository, please visit the following link: [shapefile data](https://github.com/nicocriscuolo/OliveR/tree/master/inst/shpefile_data).
 
 ## Citation
 
