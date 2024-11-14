@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# OliveR 0.1.0
+# OliveR 0.1.1
 
 OliveR is an R package containing a [shiny](https://shiny.rstudio.com)
 application that provides a vast series of statistical tools for
@@ -31,19 +31,43 @@ In brief, OliveR contains the following main functionalities:
 
 ## Installation
 
-You can install the released version of OliveR from
-[GitHub](https://github.com) with:
+You can install the latest version of OliveR from GitHub following these steps:
+
+1. Create a [GitHub](https://github.com) account and sign in.
+
+2. Create a GitHub personal token following these [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
+
+3. Update [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/download/rstudio-desktop/) to the latest versions
+
+4. Install and load the library to download R packages from GitHub through the following code:
 
 ``` r
 install.packages(pkgs = "devtools")
 
 library(devtools)
-
-install_github(repo = "nicocriscuolo/OliveR", dependencies = TRUE)
 ```
 
-Once the package is loaded and the dependencies installed, you can run
-the software in the default browser through the following functions:
+5. Install older versions of the packages "rgdal" and "maptools", which are not available from the CRAN repository anymore:
+
+``` r
+install_version(package = "rgdal",
+                version = "1.6-7",
+                repos = "http://cran.us.r-project.org")
+
+install_version(package = "maptools",
+                version = "1.1-8",
+                repos = "http://cran.us.r-project.org")
+```
+
+6. Install OliveR 0.1.1 using your private token
+
+``` r
+install_github(repo = "nicocriscuolo/OliveR",
+               dependencies = TRUE,
+               auth_token = "YOUR_TOKEN_HERE")
+```
+
+7. Once the package is loaded and the dependencies installed, you can run the software in the default browser through the following functions:
 
 ``` r
 library(OliveR)
@@ -51,7 +75,7 @@ library(OliveR)
 runOliveR()
 ```
 
-OliveR 0.1.0 works on all types of browsers (Internet Explorer, Safari,
+OliveR 0.1.1 works on all types of browsers (Internet Explorer, Safari,
 Chrome, etc.) and in its current version, if you do not use the features
 of Google Maps, it can also work locally and then offline. All you have
 to do is to install the updated versions of
