@@ -34,7 +34,7 @@ You can install the latest version of OliveR from GitHub following these steps:
 
 1. Create a [GitHub](https://github.com) account and sign in.
 
-2. Create a GitHub personal token following these [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
+2. Create a GitHub personal token following these [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). Once the token is generated, give it permission to perform every action listed on the GitHub page (check all the boxes).
 
 3. Update [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/download/rstudio-desktop/) to the latest versions.
 
