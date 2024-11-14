@@ -37,7 +37,7 @@ You can install the latest version of OliveR from GitHub following these steps:
 
 2. Create a GitHub personal token following these [instructions](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
 
-3. Update [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/download/rstudio-desktop/) to the latest versions
+3. Update [R](https://cran.r-project.org/bin/macosx/) and [RStudio](https://posit.co/download/rstudio-desktop/) to the latest versions.
 
 4. Install and load the library to download R packages from GitHub through the following code:
 
@@ -47,7 +47,7 @@ install.packages(pkgs = "devtools")
 library(devtools)
 ```
 
-5. Install older versions of the packages "rgdal" and "maptools", which are not available from the CRAN repository anymore:
+5. Install older versions of the packages "rgdal" and "maptools", which are not available in the CRAN repository anymore:
 
 ``` r
 install_version(package = "rgdal",
@@ -59,7 +59,7 @@ install_version(package = "maptools",
                 repos = "http://cran.us.r-project.org")
 ```
 
-6. Install OliveR 0.1.1 using your private token
+6. Install OliveR 0.1.1 using your GitHub private token:
 
 ``` r
 install_github(repo = "nicocriscuolo/OliveR",
